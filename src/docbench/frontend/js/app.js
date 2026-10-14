@@ -9,7 +9,8 @@
   'use strict';
 
   // 1. Central API Base Configuration
-  const API_BASE = window.DOCBENCH_API_BASE || '';
+  // Supports localStorage override for Vercel -> FastAPI Cloud split deployments
+  let API_BASE = (localStorage.getItem('docbench_api_url') || window.DOCBENCH_API_BASE || '').replace(/\/+$/, '');
 
   // 2. Application State
   const state = {
@@ -813,6 +814,30 @@
     el.tabBtnSideBySide.addEventListener('click', () => switchTab('sidebyside'));
     el.tabBtnRaw.addEventListener('click', () => switchTab('raw'));
     el.tabBtnDiagnostics.addEventListener('click', () => switchTab('diagnostics'));
+
+    // Backend API URL Configuration (for Vercel / Cloud split deployments)
+    const btnApiConfig = document.getElementById('btn-api-config');
+    if (btnApiConfig) {
+      btnApiConfig.addEventListener('click', () => {
+        const current = localStorage.getItem('docbench_api_url') || window.DOCBENCH_API_BASE || '';
+        const entered = prompt(
+          'Enter your deployed FastAPI Cloud Backend URL\n(e.g., https://your-app.fastapicloud.app):\n\nLeave blank to reset to default relative path.',
+          current
+        );
+        if (entered !== null) {
+          const cleaned = entered.trim().replace(/\/+$/, '');
+          if (cleaned) {
+            localStorage.setItem('docbench_api_url', cleaned);
+            API_BASE = cleaned;
+          } else {
+            localStorage.removeItem('docbench_api_url');
+            API_BASE = (window.DOCBENCH_API_BASE || '').replace(/\/+$/, '');
+          }
+          checkApiHealth();
+          fetchBenchmarkSummary();
+        }
+      });
+    }
   }
 
   // --------------------------------------------------------------------------

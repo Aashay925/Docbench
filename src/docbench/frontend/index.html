@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DocBench | PDF-to-Markdown Ingestion & Structural Preservation Benchmark</title>
   <meta name="description" content="High-precision, deterministic PDF-to-Markdown document ingestion and evaluation benchmark dashboard.">
-  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,6 +23,9 @@
         </div>
       </div>
       <div class="header-actions">
+        <button class="btn btn-ghost btn-xs" id="btn-api-config" title="Configure FastAPI Cloud Backend URL" aria-label="Configure Backend URL">
+          ⚙️ API URL
+        </button>
         <div class="status-pill" id="api-status-pill" title="Live REST API Operational Health">
           <span class="status-dot"></span>
           <span id="api-status-text">Checking API...</span>
@@ -419,6 +422,6 @@
     </div>
   </footer>
 
-  <script src="/static/js/app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
