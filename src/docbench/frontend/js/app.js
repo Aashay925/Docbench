@@ -9,9 +9,12 @@
   'use strict';
 
   // 1. Central API Base Configuration
-  // Supports localStorage override for Vercel -> FastAPI Cloud split deployments
-  const defaultBase = window.location.hostname.includes('vercel.app') ? 'https://docbench.fastapicloud.dev' : '';
-  let API_BASE = (localStorage.getItem('docbench_api_url') || window.DOCBENCH_API_BASE || defaultBase).replace(/\/+$/, '');
+  // Automatically routes to FastAPI Cloud production backend when hosted on Vercel,
+  // or uses origin-relative endpoints when running locally or on the backend host.
+  const API_BASE = (window.location.hostname.includes('vercel.app')
+    ? 'https://docbench.fastapicloud.dev'
+    : (window.DOCBENCH_API_BASE || '')
+  ).replace(/\/+$/, '');
 
   // 2. Application State
   const state = {
@@ -235,10 +238,10 @@
 
     // Aggregates
     const agg = data.aggregates || {};
-    el.corpusHeadingF1.textContent = formatPercent(agg.average_heading_f1);
-    el.corpusTableCellAcc.textContent = formatPercent(agg.average_table_cell_accuracy);
-    el.corpusTextComp.textContent = formatPercent(agg.average_text_completeness);
-    el.corpusReadingOrder.textContent = formatPercent(agg.average_reading_order);
+    el.corpusHeadingF1.textContent = formatPercent(agg.avg_heading_f1 ?? agg.average_heading_f1);
+    el.corpusTableCellAcc.textContent = formatPercent(agg.avg_table_cell_accuracy ?? agg.average_table_cell_accuracy);
+    el.corpusTextComp.textContent = formatPercent(agg.avg_text_completeness ?? agg.average_text_completeness);
+    el.corpusReadingOrder.textContent = formatPercent(agg.avg_reading_order_accuracy ?? agg.average_reading_order ?? agg.avg_reading_order);
 
     // Repeatability
     const rep = data.repeatability_summary || {};
@@ -816,29 +819,6 @@
     el.tabBtnRaw.addEventListener('click', () => switchTab('raw'));
     el.tabBtnDiagnostics.addEventListener('click', () => switchTab('diagnostics'));
 
-    // Backend API URL Configuration (for Vercel / Cloud split deployments)
-    const btnApiConfig = document.getElementById('btn-api-config');
-    if (btnApiConfig) {
-      btnApiConfig.addEventListener('click', () => {
-        const current = localStorage.getItem('docbench_api_url') || window.DOCBENCH_API_BASE || '';
-        const entered = prompt(
-          'Enter your deployed FastAPI Cloud Backend URL\n(e.g., https://your-app.fastapicloud.app):\n\nLeave blank to reset to default relative path.',
-          current
-        );
-        if (entered !== null) {
-          const cleaned = entered.trim().replace(/\/+$/, '');
-          if (cleaned) {
-            localStorage.setItem('docbench_api_url', cleaned);
-            API_BASE = cleaned;
-          } else {
-            localStorage.removeItem('docbench_api_url');
-            API_BASE = (window.DOCBENCH_API_BASE || '').replace(/\/+$/, '');
-          }
-          checkApiHealth();
-          fetchBenchmarkSummary();
-        }
-      });
-    }
   }
 
   // --------------------------------------------------------------------------

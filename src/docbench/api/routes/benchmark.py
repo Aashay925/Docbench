@@ -21,7 +21,14 @@ async def get_benchmark_summary_endpoint():
     """
     data = await benchmark_service.get_benchmark_summary()
 
-    crit_count = data.get("aggregates", {}).get("critical_failures_count", 0)
+    raw_agg = data.get("aggregates", {})
+    enriched_agg = dict(raw_agg)
+    enriched_agg["average_heading_f1"] = raw_agg.get("avg_heading_f1", raw_agg.get("average_heading_f1", 1.0))
+    enriched_agg["average_table_cell_accuracy"] = raw_agg.get("avg_table_cell_accuracy", raw_agg.get("average_table_cell_accuracy", 1.0))
+    enriched_agg["average_text_completeness"] = raw_agg.get("avg_text_completeness", raw_agg.get("average_text_completeness", 1.0))
+    enriched_agg["average_reading_order"] = raw_agg.get("avg_reading_order_accuracy", raw_agg.get("average_reading_order", 1.0))
+
+    crit_count = raw_agg.get("critical_failures_count", 0)
     status_str = "ALL_PASS" if crit_count == 0 else f"{crit_count}_CRITICAL_FAILS"
 
     return BenchmarkSummaryResponse(
@@ -30,7 +37,7 @@ async def get_benchmark_summary_endpoint():
         overall_benchmark_score=data.get("overall_benchmark_score", 0.0),
         status=status_str,
         critical_failures_count=crit_count,
-        aggregates=data.get("aggregates", {}),
+        aggregates=enriched_agg,
         repeatability_summary=data.get("repeatability_summary", {}),
         document_summaries=data.get("document_evaluations", []),
     )
