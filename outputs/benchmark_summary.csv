@@ -1,0 +1,6 @@
+doc_id,heading_f1,table_cell_accuracy,text_completeness,reading_order_accuracy,list_preservation_f1,composite_score,status,duration_ms,sha256_stability,mean_latency_ms,std_latency_ms
+contract,1.0000,1.0000,1.0000,1.0000,1.0000,1.0000,PASS,52.08,1.0000,79.59,25.86
+tabular_report,1.0000,1.0000,1.0000,1.0000,N/A,1.0000,PASS,46.94,1.0000,63.29,12.41
+multipage_report,1.0000,1.0000,1.0000,1.0000,1.0000,1.0000,PASS,72.96,1.0000,99.38,11.11
+edge_cases,1.0000,1.0000,1.0000,1.0000,1.0000,1.0000,PASS,116.62,1.0000,82.76,24.19
+CORPUS_AVERAGE,1.0000,1.0000,1.0000,1.0000,1.0000,1.0000,ALL_PASS,72.15,1.0000,81.25,18.39

@@ -1,0 +1,135 @@
+{
+  "doc_id": "tabular_report",
+  "filename": "tabular_report.pdf",
+  "title": "Acme Holdings - Q4 Financial & Operational Report",
+  "page_count": 1,
+  "headings": [
+    {
+      "level": 1,
+      "text": "Acme Holdings - Q4 Financial & Operational Report",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "Executive Summary",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "Financial Performance Summary",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "Business Segment Breakdown",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "Operational Efficiency Commentary",
+      "page": 1
+    }
+  ],
+  "tables": [
+    {
+      "table_id": 1,
+      "headers": [
+        "Metric",
+        "Q3 2025",
+        "Q4 2025",
+        "Variance (%)",
+        "YoY Growth (%)"
+      ],
+      "rows": [
+        [
+          "Total Revenue ($M)",
+          "142.50",
+          "168.20",
+          "+18.0%",
+          "+24.6%"
+        ],
+        [
+          "Gross Profit ($M)",
+          "98.30",
+          "119.40",
+          "+21.5%",
+          "+28.1%"
+        ],
+        [
+          "Operating Income ($M)",
+          "34.20",
+          "44.80",
+          "+31.0%",
+          "+36.2%"
+        ],
+        [
+          "Net Income ($M)",
+          "26.80",
+          "35.10",
+          "+31.0%",
+          "+33.0%"
+        ],
+        [
+          "Diluted EPS ($)",
+          "0.82",
+          "1.07",
+          "+30.5%",
+          "+32.1%"
+        ]
+      ],
+      "page": 1
+    },
+    {
+      "table_id": 2,
+      "headers": [
+        "Division",
+        "Revenue ($M)",
+        "Operating Margin",
+        "Headcount",
+        "Key Growth Driver"
+      ],
+      "rows": [
+        [
+          "Cloud Infrastructure",
+          "78.40",
+          "32.5%",
+          "420",
+          "Enterprise Migration"
+        ],
+        [
+          "Enterprise Software",
+          "54.60",
+          "28.0%",
+          "310",
+          "AI Integration Suite"
+        ],
+        [
+          "Professional Services",
+          "35.20",
+          "18.5%",
+          "215",
+          "Advisory Engagements"
+        ]
+      ],
+      "page": 1
+    }
+  ],
+  "lists": [],
+  "text_blocks": [
+    "Acme Holdings delivered strong operating results for the fourth quarter ended December 31, 2025, driven by accelerating adoption of enterprise cloud products and high-margin recurring subscriptions.",
+    "Consolidated net revenue grew 24.6% year-over-year to $168.20 million, with gross margins expanding 180 basis points due to infrastructure efficiencies.",
+    "Operating margin expansion reflected disciplined expense management alongside strategic investment in machine learning infrastructure and engineering talent."
+  ],
+  "reading_order_anchors": [
+    "Acme Holdings - Q4 Financial & Operational Report",
+    "Executive Summary",
+    "Financial Performance Summary",
+    "Total Revenue ($M)",
+    "Business Segment Breakdown",
+    "Cloud Infrastructure",
+    "Operational Efficiency Commentary"
+  ],
+  "expected_char_count": 1920,
+  "expected_word_count": 230,
+  "reference_markdown_sha256": "938d2769e32a414659393777fa6ea5755992ac1b537640994123d0aefe320bde"
+}

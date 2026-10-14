@@ -1,0 +1,148 @@
+{
+  "doc_id": "multipage_report",
+  "filename": "multipage_report.pdf",
+  "title": "Enterprise Systems Architecture Report",
+  "page_count": 3,
+  "headings": [
+    {
+      "level": 1,
+      "text": "Enterprise Systems Architecture Report",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "Executive Overview and Scope",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "1. High-Level System Objectives",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "2. Core Service Infrastructure",
+      "page": 2
+    },
+    {
+      "level": 3,
+      "text": "2.1 Event Streaming and Messaging",
+      "page": 2
+    },
+    {
+      "level": 2,
+      "text": "3. Security, Compliance, and Data Governance",
+      "page": 3
+    },
+    {
+      "level": 2,
+      "text": "4. Architectural Conclusions and Next Steps",
+      "page": 3
+    }
+  ],
+  "tables": [
+    {
+      "table_id": 1,
+      "headers": [
+        "Component",
+        "Technology",
+        "Target Latency",
+        "Redundancy"
+      ],
+      "rows": [
+        [
+          "API Gateway",
+          "Envoy Proxy",
+          "< 5 ms",
+          "N+2 Active"
+        ],
+        [
+          "Auth Engine",
+          "OAuth2 / OIDC",
+          "< 12 ms",
+          "Multi-Region"
+        ],
+        [
+          "Event Broker",
+          "Apache Kafka",
+          "< 15 ms",
+          "3x Replicas"
+        ],
+        [
+          "Primary Store",
+          "PostgreSQL HA",
+          "< 25 ms",
+          "Synchronous Leader"
+        ]
+      ],
+      "page": 2
+    }
+  ],
+  "lists": [
+    {
+      "text": "Achieve 99.99% availability across multi-region deployment zones.",
+      "list_type": "numbered",
+      "depth": 0,
+      "page": 1
+    },
+    {
+      "text": "Maintain p99 API response latencies below 85 milliseconds under peak loads.",
+      "list_type": "numbered",
+      "depth": 0,
+      "page": 1
+    },
+    {
+      "text": "Enforce zero-trust mutual TLS authentication between all internal services.",
+      "list_type": "numbered",
+      "depth": 0,
+      "page": 1
+    },
+    {
+      "text": "Guarantee automated database failover within 120 seconds of telemetry loss.",
+      "list_type": "numbered",
+      "depth": 0,
+      "page": 1
+    },
+    {
+      "text": "Hardware Security Module key rotation enforced every 90 days",
+      "list_type": "bullet",
+      "depth": 0,
+      "page": 3
+    },
+    {
+      "text": "Role-based access control policies validated via automated CI tests",
+      "list_type": "bullet",
+      "depth": 0,
+      "page": 3
+    },
+    {
+      "text": "Continuous static and dynamic vulnerability analysis on all container images",
+      "list_type": "bullet",
+      "depth": 0,
+      "page": 3
+    }
+  ],
+  "text_blocks": [
+    "This document establishes the production architectural standards for the next-generation distributed transaction processing system.",
+    "All core subsystems are designed for fault-tolerant operation across three geographic regions with active-active routing topologies.",
+    "The microservice plane isolates stateless business logic from stateful storage engines, facilitating elastic horizontal autoscaling during unpredictable traffic surges.",
+    "Event-driven streaming via distributed commit logs enables decoupled communication patterns and reliable change data capture between asynchronous consumers.",
+    "Enterprise compliance requirements necessitate immutable audit logging and strict cryptographic isolation for customer financial transactions.",
+    "Implementation will proceed in staged delivery milestones, commencing with canary verification of edge gateway proxies and foundational database replication."
+  ],
+  "reading_order_anchors": [
+    "Enterprise Systems Architecture Report",
+    "Executive Overview and Scope",
+    "1. High-Level System Objectives",
+    "Achieve 99.99% availability across multi-region deployment zones.",
+    "2. Core Service Infrastructure",
+    "API Gateway",
+    "2.1 Event Streaming and Messaging",
+    "3. Security, Compliance, and Data Governance",
+    "Hardware Security Module key rotation enforced every 90 days",
+    "4. Architectural Conclusions and Next Steps"
+  ],
+  "expected_char_count": 3200,
+  "expected_word_count": 380,
+  "reference_markdown_sha256": "32d7d71732aa622b0bf390e92edda0b9f27fd43b5af1bccca7db34a64a75e753"
+}

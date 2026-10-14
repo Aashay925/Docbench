@@ -1,0 +1,111 @@
+{
+  "doc_id": "contract",
+  "filename": "contract.pdf",
+  "title": "Master Services Agreement",
+  "page_count": 1,
+  "headings": [
+    {
+      "level": 1,
+      "text": "Master Services Agreement",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "1. Engagement and Scope of Work",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "2. Fees and Payment Terms",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "3. Term and Termination",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "4. Confidentiality and Proprietary Rights",
+      "page": 1
+    },
+    {
+      "level": 2,
+      "text": "5. Signatures and Execution",
+      "page": 1
+    }
+  ],
+  "tables": [
+    {
+      "table_id": 1,
+      "headers": [
+        "Party",
+        "Authorized Representative",
+        "Title",
+        "Date"
+      ],
+      "rows": [
+        [
+          "Nexus Technologies LLC",
+          "Eleanor Vance",
+          "Chief Information Officer",
+          "January 1, 2026"
+        ],
+        [
+          "Apex Systems Inc.",
+          "Marcus Sterling",
+          "Chief Executive Officer",
+          "January 1, 2026"
+        ]
+      ],
+      "page": 1
+    }
+  ],
+  "lists": [
+    {
+      "text": "Cloud infrastructure architecture audit and remediation roadmap",
+      "list_type": "bullet",
+      "depth": 0,
+      "page": 1
+    },
+    {
+      "text": "Automated continuous integration and deployment pipeline setup",
+      "list_type": "bullet",
+      "depth": 0,
+      "page": 1
+    },
+    {
+      "text": "High-availability database clustering and replication configuration",
+      "list_type": "bullet",
+      "depth": 0,
+      "page": 1
+    },
+    {
+      "text": "24/7 incident response monitoring and escalation procedures",
+      "list_type": "bullet",
+      "depth": 0,
+      "page": 1
+    }
+  ],
+  "text_blocks": [
+    "This Master Services Agreement is entered into as of January 1, 2026, by and between Nexus Technologies LLC (\"Client\") and Apex Systems Inc. (\"Provider\").",
+    "Provider shall render specialized systems engineering, reliability architecture, and platform automation services described herein.",
+    "Client shall pay Provider a fixed monthly retainer of $24,500.00 USD, payable net 30 days from date of monthly invoice.",
+    "This Agreement commences on January 1, 2026, and continues for an initial period of twelve (12) months unless terminated with thirty (30) days prior written notice.",
+    "Each party agrees to maintain in strict confidence all proprietary data, architectural designs, and trade secrets disclosed during this engagement."
+  ],
+  "reading_order_anchors": [
+    "Master Services Agreement",
+    "This Master Services Agreement is entered into as of January 1, 2026",
+    "1. Engagement and Scope of Work",
+    "Cloud infrastructure architecture audit and remediation roadmap",
+    "2. Fees and Payment Terms",
+    "3. Term and Termination",
+    "4. Confidentiality and Proprietary Rights",
+    "5. Signatures and Execution",
+    "Eleanor Vance"
+  ],
+  "expected_char_count": 1850,
+  "expected_word_count": 260,
+  "reference_markdown_sha256": "9a0738f4a78eaa42ca89fd3ee9442439219dd73dd516437bf07d24dbe25e334b"
+}

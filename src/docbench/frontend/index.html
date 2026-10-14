@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocBench | PDF-to-Markdown Ingestion & Structural Preservation Benchmark</title>
+  <meta name="description" content="High-precision, deterministic PDF-to-Markdown document ingestion and evaluation benchmark dashboard.">
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-inner container">
+      <div class="brand">
+        <div class="logo-mark">DB</div>
+        <div class="brand-text">
+          <h1 class="brand-title">DocBench</h1>
+          <span class="brand-subtitle">Document Ingestion & Structural Preservation Benchmark</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="status-pill" id="api-status-pill" title="Live REST API Operational Health">
+          <span class="status-dot"></span>
+          <span id="api-status-text">Checking API...</span>
+        </div>
+        <span class="badge badge-outline" id="api-version-badge">v1</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-content">
+
+    <!-- Section 1: Corpus Benchmark Summary -->
+    <section class="card section-summary" id="section-corpus">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h2 class="card-title">Corpus Benchmark Performance</h2>
+          <span class="card-caption">Aggregate evaluation across 4 deterministic synthetic document topologies</span>
+        </div>
+        <div class="card-header-actions">
+          <span class="badge badge-cached" id="summary-cached-badge">Cached</span>
+          <button class="btn btn-secondary btn-sm" id="btn-refresh-summary" aria-label="Refresh Benchmark Summary">
+            <svg class="icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- Error & Loading states for Corpus -->
+        <div class="alert alert-error" id="corpus-error-alert" style="display: none;" role="alert">
+          <span class="alert-icon">⚠️</span>
+          <div class="alert-content" id="corpus-error-message">Failed to load benchmark summary.</div>
+        </div>
+
+        <div class="corpus-grid" id="corpus-stats-grid">
+          <div class="stat-box stat-primary">
+            <span class="stat-label">Corpus Composite Score</span>
+            <div class="stat-value-group">
+              <span class="stat-value" id="corpus-overall-score">--</span>
+              <span class="stat-unit">/ 100</span>
+            </div>
+            <div class="stat-meta">
+              <span class="badge badge-success" id="corpus-status-badge">PASS</span>
+              <span class="stat-subtext" id="corpus-crit-failures">0 Critical Failures</span>
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-label">Heading F1</span>
+            <span class="stat-value" id="corpus-heading-f1">--</span>
+            <span class="stat-subtext">H1-H3 Hierarchy Preservation</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-label">Table Cell Accuracy</span>
+            <span class="stat-value" id="corpus-table-cell-acc">--</span>
+            <span class="stat-subtext">Spatial 2D Matrix Alignment</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-label">Text Completeness</span>
+            <span class="stat-value" id="corpus-text-comp">--</span>
+            <span class="stat-subtext">Token F1 & Hallucination Penalty</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-label">Reading Order Acc</span>
+            <span class="stat-value" id="corpus-reading-order">--</span>
+            <span class="stat-subtext">Kendall's Tau & LIS Sequence</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-label">Repeatability Stability</span>
+            <span class="stat-value" id="corpus-repeatability-ratio">--</span>
+            <span class="stat-subtext">Bitwise Determinism (0.0 Jitter)</span>
+          </div>
+        </div>
+
+        <!-- Document breakdown table -->
+        <div class="table-container" style="margin-top: 1.25rem;">
+          <table class="data-table" id="corpus-documents-table">
+            <thead>
+              <tr>
+                <th scope="col">Document ID</th>
+                <th scope="col">Topology & Content</th>
+                <th scope="col">Composite Score</th>
+                <th scope="col">Evaluation Status</th>
+                <th scope="col">Ingestion Latency</th>
+              </tr>
+            </thead>
+            <tbody id="corpus-table-body">
+              <tr>
+                <td colspan="5" class="text-center text-muted">Loading benchmark document corpus...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: PDF Ingestion & Evaluation Workspace -->
+    <div class="workspace-grid" id="section-workspace">
+
+      <!-- Upload Panel -->
+      <section class="card upload-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="card-title">Document Ingestion & Evaluation</h2>
+            <span class="card-caption">Upload PDF for conservative Markdown synthesis or ground-truth evaluation</span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <!-- Dropzone -->
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload PDF file via drag and drop or browse">
+            <input type="file" id="file-input" accept=".pdf,application/pdf" style="display: none;" aria-hidden="true">
+            <div class="dropzone-icon">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="12" y2="12"/><line x1="15" y1="15" x2="12" y2="12"/></svg>
+            </div>
+            <div class="dropzone-text">
+              <span class="dropzone-primary">Drag & drop your PDF file here, or <strong class="text-accent">browse</strong></span>
+              <span class="dropzone-hint">Accepts standard PDF documents up to 5 MB. Evaluated locally.</span>
+            </div>
+          </div>
+
+          <!-- Selected File Details -->
+          <div class="selected-file-banner" id="selected-file-banner" style="display: none;">
+            <div class="file-icon">📄</div>
+            <div class="file-info">
+              <span class="file-name" id="selected-file-name">document.pdf</span>
+              <span class="file-size" id="selected-file-size">0 KB</span>
+            </div>
+            <button class="btn btn-icon btn-sm" id="btn-clear-file" title="Clear selected file" aria-label="Clear selected file">✕</button>
+          </div>
+
+          <!-- Quick Sample Loaders -->
+          <div class="quick-samples">
+            <span class="quick-samples-label">Quick Test Synthetic Samples:</span>
+            <div class="sample-buttons">
+              <button type="button" class="btn btn-ghost btn-xs sample-btn" data-doc="contract" id="btn-sample-contract">Contract</button>
+              <button type="button" class="btn btn-ghost btn-xs sample-btn" data-doc="tabular_report" id="btn-sample-tabular">Tabular Report</button>
+              <button type="button" class="btn btn-ghost btn-xs sample-btn" data-doc="multipage_report" id="btn-sample-multipage">Multi-Page Spec</button>
+              <button type="button" class="btn btn-ghost btn-xs sample-btn" data-doc="edge_cases" id="btn-sample-edge">Stress Test</button>
+            </div>
+          </div>
+
+          <!-- Reference Selection for Evaluation -->
+          <div class="form-group" style="margin-top: 1rem;">
+            <label for="reference-select" class="form-label">
+              Ground-Truth Reference Manifest
+              <span class="form-sublabel">(Required for benchmark scoring; optional for plain ingestion)</span>
+            </label>
+            <select id="reference-select" class="form-select">
+              <option value="">Auto-detect from file name</option>
+              <option value="contract">contract - Master Services Agreement</option>
+              <option value="tabular_report">tabular_report - Q4 Financial & Operating Report</option>
+              <option value="multipage_report">multipage_report - 3-Page System Architecture Spec</option>
+              <option value="edge_cases">edge_cases - Accents, Currencies & Nested Lists</option>
+            </select>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" id="btn-ingest" disabled>
+              <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              Convert to Markdown
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-evaluate" disabled>
+              <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Ingest & Evaluate
+            </button>
+          </div>
+
+          <!-- Status & Error Alert -->
+          <div class="alert alert-info" id="status-alert" style="display: none;" role="status">
+            <div class="spinner" id="status-spinner" style="display: none;"></div>
+            <span class="alert-icon" id="status-alert-icon">ℹ️</span>
+            <div class="alert-content" id="status-alert-message">Processing document...</div>
+          </div>
+
+          <div class="disclaimer-note">
+            Client-side checks validate file extension and 5 MB limit before transmission; full PDF structure and format boundaries are strictly verified by backend service.
+          </div>
+        </div>
+      </section>
+
+      <!-- Evaluation Metric Scorecard (Populated on Evaluate) -->
+      <section class="card eval-card" id="evaluation-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 class="card-title">Structural Evaluation Metrics</h2>
+            <span class="card-caption" id="eval-ref-caption">Evaluated against verified ground-truth reference</span>
+          </div>
+          <span class="badge" id="eval-status-badge">AWAITING EVALUATION</span>
+        </div>
+
+        <div class="card-body">
+          <div class="eval-empty-state" id="eval-empty-state">
+            <div class="empty-icon">📊</div>
+            <p class="empty-text">Upload a PDF and click <strong>"Ingest & Evaluate"</strong> to calculate structural preservation metrics against reference ground truth.</p>
+          </div>
+
+          <div class="eval-results-content" id="eval-results-content" style="display: none;">
+            <div class="composite-score-hero">
+              <div class="hero-left">
+                <span class="hero-label">Composite Quality Score</span>
+                <div class="hero-val-group">
+                  <span class="hero-val" id="eval-composite-val">100.0%</span>
+                  <span class="badge badge-success" id="eval-composite-badge">PASS</span>
+                </div>
+              </div>
+              <div class="hero-right">
+                <span class="hero-sublabel">Evaluation Latency</span>
+                <span class="hero-subval" id="eval-duration-val">-- ms</span>
+                <span class="hero-sublabel" style="margin-top: 0.5rem;">Critical Failure Check</span>
+                <span class="badge badge-outline" id="eval-crit-check">No Critical Fails</span>
+              </div>
+            </div>
+
+            <!-- Metric breakdown cards -->
+            <div class="metric-breakdown-grid">
+              <!-- Headings -->
+              <div class="metric-card">
+                <div class="metric-card-header">
+                  <span class="metric-name">Heading Hierarchy</span>
+                  <span class="metric-score" id="score-heading-f1">--</span>
+                </div>
+                <div class="metric-details" id="details-heading">Precision: -- | Recall: -- | Order: --</div>
+              </div>
+
+              <!-- Tables -->
+              <div class="metric-card">
+                <div class="metric-card-header">
+                  <span class="metric-name">Table Cell Accuracy</span>
+                  <span class="metric-score" id="score-table-cell">--</span>
+                </div>
+                <div class="metric-details" id="details-table">Cells Matched: -- / -- | Detection: --</div>
+              </div>
+
+              <!-- Text Completeness -->
+              <div class="metric-card">
+                <div class="metric-card-header">
+                  <span class="metric-name">Text Completeness</span>
+                  <span class="metric-score" id="score-text-comp">--</span>
+                </div>
+                <div class="metric-details" id="details-text">Token F1: -- | Sequence Sim: --</div>
+              </div>
+
+              <!-- Reading Order -->
+              <div class="metric-card">
+                <div class="metric-card-header">
+                  <span class="metric-name">Reading Order</span>
+                  <span class="metric-score" id="score-reading-order">--</span>
+                </div>
+                <div class="metric-details" id="details-order">Kendall's Tau: -- | LIS Ratio: --</div>
+              </div>
+
+              <!-- List Preservation -->
+              <div class="metric-card">
+                <div class="metric-card-header">
+                  <span class="metric-name">List Preservation</span>
+                  <span class="metric-score" id="score-list-f1">--</span>
+                </div>
+                <div class="metric-details" id="details-list">Precision: -- | Depth Acc: --</div>
+              </div>
+            </div>
+
+            <!-- Dynamic weight allocation note -->
+            <div class="weight-allocation-bar">
+              <span class="weight-label">Active Normalized Weight Allocations:</span>
+              <div class="weight-tags" id="weight-tags-container"></div>
+            </div>
+
+            <!-- Metric Explanation Details -->
+            <details class="metric-explanation">
+              <summary>How are these benchmark scores calculated?</summary>
+              <div class="explanation-body">
+                <p><strong>Heading F1:</strong> Harmonic mean of heading precision and recall, strictly penalizing misclassified levels (H1 vs H2) and sequence inversion.</p>
+                <p><strong>Table Cell Accuracy:</strong> Exact-cell matching across detected tables using spatial bounding box isolation. Text inside tables is completely isolated to eliminate duplication.</p>
+                <p><strong>Text Completeness:</strong> Verbatim token recall, precision, and length-ratio penalization to actively detect missed sections or text hallucinations.</p>
+                <p><strong>Reading Order:</strong> Longest Increasing Subsequence (LIS) and Kendall's Tau rank correlation measuring vertical sentence flow.</p>
+                <p><strong>List Preservation:</strong> Strict hierarchy recognition for unordered bullets and numbered items. Documents without lists are marked <em>N/A</em> and dynamic weights re-normalize across applicable components.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Section 3: Output & Side-by-Side Comparison Workspace -->
+    <section class="card section-output" id="section-output" style="display: none;">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h2 class="card-title">Extracted Markdown & Side-by-Side Comparison</h2>
+          <span class="card-caption" id="output-meta-caption">Conservative GFM output generated by spatial geometry pipeline</span>
+        </div>
+        <div class="card-header-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-copy-md">
+            <svg class="icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span id="btn-copy-text">Copy Markdown</span>
+          </button>
+          <button class="btn btn-secondary btn-sm" id="btn-download-md">
+            <svg class="icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download .md
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- Metadata pills -->
+        <div class="metadata-strip">
+          <div class="meta-item"><strong>Document:</strong> <span id="meta-filename">--</span></div>
+          <div class="meta-item"><strong>Pages:</strong> <span id="meta-pages">--</span></div>
+          <div class="meta-item"><strong>Duration:</strong> <span id="meta-duration">--</span></div>
+          <div class="meta-item"><strong>Usable Text:</strong> <span id="meta-usable" class="badge badge-success">Yes</span></div>
+          <div class="meta-item"><strong>Markdown SHA-256:</strong> <code id="meta-sha256" class="hash-code">--</code></div>
+        </div>
+
+        <!-- View Tabs -->
+        <div class="tabs-nav" role="tablist">
+          <button class="tab-btn active" id="tab-btn-sidebyside" role="tab" aria-selected="true" aria-controls="pane-sidebyside">Side-by-Side Comparison</button>
+          <button class="tab-btn" id="tab-btn-raw" role="tab" aria-selected="false" aria-controls="pane-raw">Raw Markdown</button>
+          <button class="tab-btn" id="tab-btn-diagnostics" role="tab" aria-selected="false" aria-controls="pane-diagnostics">Extraction Diagnostics</button>
+        </div>
+
+        <!-- Tab 1: Side-by-Side Pane -->
+        <div class="tab-pane active" id="pane-sidebyside" role="tabpanel" aria-labelledby="tab-btn-sidebyside">
+          <div class="comparison-split-view">
+            <div class="split-column">
+              <div class="column-header">
+                <span class="column-title">Extracted Markdown Output</span>
+                <span class="badge badge-outline" id="extracted-headings-badge">0 headings</span>
+              </div>
+              <div class="code-editor-box">
+                <pre><code id="code-extracted" class="code-content"></code></pre>
+              </div>
+            </div>
+
+            <div class="split-column">
+              <div class="column-header">
+                <span class="column-title" id="reference-column-title">Ground-Truth Reference Markdown</span>
+                <span class="badge badge-outline" id="reference-badge">Reference</span>
+              </div>
+              <div class="code-editor-box">
+                <pre><code id="code-reference" class="code-content"></code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Raw Markdown Pane -->
+        <div class="tab-pane" id="pane-raw" role="tabpanel" aria-labelledby="tab-btn-raw" style="display: none;">
+          <div class="code-editor-box">
+            <pre><code id="code-raw" class="code-content"></code></pre>
+          </div>
+        </div>
+
+        <!-- Tab 3: Diagnostics Pane -->
+        <div class="tab-pane" id="pane-diagnostics" role="tabpanel" aria-labelledby="tab-btn-diagnostics" style="display: none;">
+          <div class="diagnostics-view" id="diagnostics-container">
+            <div class="diagnostics-summary-grid">
+              <div class="stat-box">
+                <span class="stat-label">Headings Extracted</span>
+                <span class="stat-value" id="diag-headings-count">0</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Tables Extracted</span>
+                <span class="stat-value" id="diag-tables-count">0</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">List Items Extracted</span>
+                <span class="stat-value" id="diag-lists-count">0</span>
+              </div>
+            </div>
+            <div class="log-entries" id="diag-entries" style="margin-top: 1rem;">
+              <span class="text-muted">No diagnostic warnings reported. Extraction completed cleanly.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <strong>DocBench</strong> — Deterministic PDF Ingestion & Benchmark Suite (Phase 4).
+      </div>
+      <div class="footer-right text-muted">
+        Engineered for Zipmd Collaboration • MIT / BSD-3-Clause Compliant • AGPL-Free
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

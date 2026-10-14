@@ -1,0 +1,399 @@
+{
+  "timestamp": "2026-10-14T21:06:51.368507+00:00",
+  "system_info": {
+    "timestamp": "2026-10-14T21:06:51.368507+00:00",
+    "python_version": "3.12.0",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel"
+  },
+  "overall_benchmark_score": 100.0,
+  "aggregates": {
+    "avg_heading_f1": 1.0,
+    "avg_table_cell_accuracy": 1.0,
+    "avg_text_completeness": 1.0,
+    "avg_reading_order_accuracy": 1.0,
+    "avg_list_preservation_f1": 1.0,
+    "avg_composite_score": 1.0,
+    "avg_ingestion_duration_ms": 72.15,
+    "critical_failures_count": 0
+  },
+  "repeatability_summary": {
+    "runs": 5,
+    "overall_identical_rate": 1.0,
+    "avg_mean_duration_ms": 81.25,
+    "avg_std_duration_ms": 18.39
+  },
+  "document_evaluations": [
+    {
+      "doc_id": "contract",
+      "heading_score": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "matched_count": 6,
+        "expected_count": 6,
+        "extracted_count": 6,
+        "order_accuracy": 1.0,
+        "is_applicable": true
+      },
+      "table_score": {
+        "table_detection_precision": 1.0,
+        "table_detection_recall": 1.0,
+        "cell_accuracy": 1.0,
+        "matched_cells": 12,
+        "total_expected_cells": 12,
+        "total_extracted_cells": 12,
+        "table_count_expected": 1,
+        "table_count_extracted": 1,
+        "is_applicable": true
+      },
+      "text_score": {
+        "char_recall": 1.0,
+        "token_recall": 1.0,
+        "token_precision": 1.0,
+        "token_f1": 1.0,
+        "sequence_similarity": 1.0,
+        "jaccard_similarity": 1.0,
+        "length_ratio": 1.0,
+        "composite_text_score": 1.0
+      },
+      "reading_order_score": {
+        "lcs_ratio": 1.0,
+        "kendall_tau": 1.0,
+        "anchor_count_expected": 9,
+        "anchor_count_found": 9,
+        "composite_order_score": 1.0
+      },
+      "list_score": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "matched_items": 4,
+        "expected_items": 4,
+        "extracted_items": 4,
+        "depth_accuracy": 1.0,
+        "order_accuracy": 1.0,
+        "is_applicable": true
+      },
+      "composite_score": 1.0,
+      "weights": {
+        "heading_f1": 0.2,
+        "table_cell_accuracy": 0.25,
+        "text_completeness": 0.25,
+        "reading_order_accuracy": 0.15,
+        "list_preservation_f1": 0.15
+      },
+      "applicable_weights": {
+        "text_completeness": 0.25,
+        "reading_order_accuracy": 0.15,
+        "heading_f1": 0.2,
+        "table_cell_accuracy": 0.25,
+        "list_preservation_f1": 0.15
+      },
+      "critical_failure": false,
+      "min_component_score": 1.0
+    },
+    {
+      "doc_id": "tabular_report",
+      "heading_score": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "matched_count": 5,
+        "expected_count": 5,
+        "extracted_count": 5,
+        "order_accuracy": 1.0,
+        "is_applicable": true
+      },
+      "table_score": {
+        "table_detection_precision": 1.0,
+        "table_detection_recall": 1.0,
+        "cell_accuracy": 1.0,
+        "matched_cells": 50,
+        "total_expected_cells": 50,
+        "total_extracted_cells": 50,
+        "table_count_expected": 2,
+        "table_count_extracted": 2,
+        "is_applicable": true
+      },
+      "text_score": {
+        "char_recall": 1.0,
+        "token_recall": 1.0,
+        "token_precision": 1.0,
+        "token_f1": 1.0,
+        "sequence_similarity": 1.0,
+        "jaccard_similarity": 1.0,
+        "length_ratio": 1.0,
+        "composite_text_score": 1.0
+      },
+      "reading_order_score": {
+        "lcs_ratio": 1.0,
+        "kendall_tau": 1.0,
+        "anchor_count_expected": 7,
+        "anchor_count_found": 7,
+        "composite_order_score": 1.0
+      },
+      "list_score": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "matched_items": 0,
+        "expected_items": 0,
+        "extracted_items": 0,
+        "depth_accuracy": 1.0,
+        "order_accuracy": 1.0,
+        "is_applicable": false
+      },
+      "composite_score": 1.0,
+      "weights": {
+        "heading_f1": 0.2,
+        "table_cell_accuracy": 0.25,
+        "text_completeness": 0.25,
+        "reading_order_accuracy": 0.15,
+        "list_preservation_f1": 0.15
+      },
+      "applicable_weights": {
+        "text_completeness": 0.2941,
+        "reading_order_accuracy": 0.1765,
+        "heading_f1": 0.2353,
+        "table_cell_accuracy": 0.2941
+      },
+      "critical_failure": false,
+      "min_component_score": 1.0
+    },
+    {
+      "doc_id": "multipage_report",
+      "heading_score": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "matched_count": 7,
+        "expected_count": 7,
+        "extracted_count": 7,
+        "order_accuracy": 1.0,
+        "is_applicable": true
+      },
+      "table_score": {
+        "table_detection_precision": 1.0,
+        "table_detection_recall": 1.0,
+        "cell_accuracy": 1.0,
+        "matched_cells": 20,
+        "total_expected_cells": 20,
+        "total_extracted_cells": 20,
+        "table_count_expected": 1,
+        "table_count_extracted": 1,
+        "is_applicable": true
+      },
+      "text_score": {
+        "char_recall": 1.0,
+        "token_recall": 1.0,
+        "token_precision": 1.0,
+        "token_f1": 1.0,
+        "sequence_similarity": 1.0,
+        "jaccard_similarity": 1.0,
+        "length_ratio": 1.0,
+        "composite_text_score": 1.0
+      },
+      "reading_order_score": {
+        "lcs_ratio": 1.0,
+        "kendall_tau": 1.0,
+        "anchor_count_expected": 10,
+        "anchor_count_found": 10,
+        "composite_order_score": 1.0
+      },
+      "list_score": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "matched_items": 7,
+        "expected_items": 7,
+        "extracted_items": 7,
+        "depth_accuracy": 1.0,
+        "order_accuracy": 1.0,
+        "is_applicable": true
+      },
+      "composite_score": 1.0,
+      "weights": {
+        "heading_f1": 0.2,
+        "table_cell_accuracy": 0.25,
+        "text_completeness": 0.25,
+        "reading_order_accuracy": 0.15,
+        "list_preservation_f1": 0.15
+      },
+      "applicable_weights": {
+        "text_completeness": 0.25,
+        "reading_order_accuracy": 0.15,
+        "heading_f1": 0.2,
+        "table_cell_accuracy": 0.25,
+        "list_preservation_f1": 0.15
+      },
+      "critical_failure": false,
+      "min_component_score": 1.0
+    },
+    {
+      "doc_id": "edge_cases",
+      "heading_score": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "matched_count": 6,
+        "expected_count": 6,
+        "extracted_count": 6,
+        "order_accuracy": 1.0,
+        "is_applicable": true
+      },
+      "table_score": {
+        "table_detection_precision": 1.0,
+        "table_detection_recall": 1.0,
+        "cell_accuracy": 1.0,
+        "matched_cells": 20,
+        "total_expected_cells": 20,
+        "total_extracted_cells": 20,
+        "table_count_expected": 1,
+        "table_count_extracted": 1,
+        "is_applicable": true
+      },
+      "text_score": {
+        "char_recall": 1.0,
+        "token_recall": 1.0,
+        "token_precision": 1.0,
+        "token_f1": 1.0,
+        "sequence_similarity": 1.0,
+        "jaccard_similarity": 1.0,
+        "length_ratio": 1.0,
+        "composite_text_score": 1.0
+      },
+      "reading_order_score": {
+        "lcs_ratio": 1.0,
+        "kendall_tau": 1.0,
+        "anchor_count_expected": 10,
+        "anchor_count_found": 10,
+        "composite_order_score": 1.0
+      },
+      "list_score": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "matched_items": 5,
+        "expected_items": 5,
+        "extracted_items": 5,
+        "depth_accuracy": 1.0,
+        "order_accuracy": 1.0,
+        "is_applicable": true
+      },
+      "composite_score": 1.0,
+      "weights": {
+        "heading_f1": 0.2,
+        "table_cell_accuracy": 0.25,
+        "text_completeness": 0.25,
+        "reading_order_accuracy": 0.15,
+        "list_preservation_f1": 0.15
+      },
+      "applicable_weights": {
+        "text_completeness": 0.25,
+        "reading_order_accuracy": 0.15,
+        "heading_f1": 0.2,
+        "table_cell_accuracy": 0.25,
+        "list_preservation_f1": 0.15
+      },
+      "critical_failure": false,
+      "min_component_score": 1.0
+    }
+  ],
+  "ingestion_summaries": [
+    {
+      "doc_id": "contract",
+      "pdf_sha256": "b62ae92846fd139b769d91ef86f3b30ae867dbe260e205db61972b3f2c1ffcff",
+      "markdown_sha256": "9a0738f4a78eaa42ca89fd3ee9442439219dd73dd516437bf07d24dbe25e334b",
+      "duration_ms": 52.08,
+      "page_count": 1,
+      "headings_extracted": 6,
+      "tables_extracted": 1,
+      "lists_extracted": 4,
+      "diagnostics": []
+    },
+    {
+      "doc_id": "tabular_report",
+      "pdf_sha256": "fd0d30e9842e9ef5aa48dedc21d58ab95540bb68276330a6d88616a62b1bbecf",
+      "markdown_sha256": "938d2769e32a414659393777fa6ea5755992ac1b537640994123d0aefe320bde",
+      "duration_ms": 46.94,
+      "page_count": 1,
+      "headings_extracted": 5,
+      "tables_extracted": 2,
+      "lists_extracted": 0,
+      "diagnostics": []
+    },
+    {
+      "doc_id": "multipage_report",
+      "pdf_sha256": "29f9b868d66ebf4c65eefeacf7292f37bd54e871fa367eda4ba11b79b782ca9e",
+      "markdown_sha256": "32d7d71732aa622b0bf390e92edda0b9f27fd43b5af1bccca7db34a64a75e753",
+      "duration_ms": 72.96,
+      "page_count": 3,
+      "headings_extracted": 7,
+      "tables_extracted": 1,
+      "lists_extracted": 7,
+      "diagnostics": []
+    },
+    {
+      "doc_id": "edge_cases",
+      "pdf_sha256": "6f2321f89d770279a959717723c9240935329ab121f4af2764874a69152c2ef6",
+      "markdown_sha256": "4ea6594ad614c62757cd4e29680da5b0eb4595720bf93be59e8a78cd316841ce",
+      "duration_ms": 116.62,
+      "page_count": 1,
+      "headings_extracted": 6,
+      "tables_extracted": 1,
+      "lists_extracted": 5,
+      "diagnostics": []
+    }
+  ],
+  "repeatability_scores": [
+    {
+      "doc_id": "contract",
+      "runs": 5,
+      "sha256_identical_rate": 1.0,
+      "unique_hashes": [
+        "9a0738f4a78eaa42ca89fd3ee9442439219dd73dd516437bf07d24dbe25e334b"
+      ],
+      "mean_duration_ms": 79.59,
+      "std_duration_ms": 25.86,
+      "min_duration_ms": 47.35,
+      "max_duration_ms": 118.82
+    },
+    {
+      "doc_id": "tabular_report",
+      "runs": 5,
+      "sha256_identical_rate": 1.0,
+      "unique_hashes": [
+        "938d2769e32a414659393777fa6ea5755992ac1b537640994123d0aefe320bde"
+      ],
+      "mean_duration_ms": 63.29,
+      "std_duration_ms": 12.41,
+      "min_duration_ms": 49.7,
+      "max_duration_ms": 79.57
+    },
+    {
+      "doc_id": "multipage_report",
+      "runs": 5,
+      "sha256_identical_rate": 1.0,
+      "unique_hashes": [
+        "32d7d71732aa622b0bf390e92edda0b9f27fd43b5af1bccca7db34a64a75e753"
+      ],
+      "mean_duration_ms": 99.38,
+      "std_duration_ms": 11.11,
+      "min_duration_ms": 85.63,
+      "max_duration_ms": 115.3
+    },
+    {
+      "doc_id": "edge_cases",
+      "runs": 5,
+      "sha256_identical_rate": 1.0,
+      "unique_hashes": [
+        "4ea6594ad614c62757cd4e29680da5b0eb4595720bf93be59e8a78cd316841ce"
+      ],
+      "mean_duration_ms": 82.76,
+      "std_duration_ms": 24.19,
+      "min_duration_ms": 56.27,
+      "max_duration_ms": 119.92
+    }
+  ]
+}
