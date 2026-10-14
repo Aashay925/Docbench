@@ -10,7 +10,8 @@
 
   // 1. Central API Base Configuration
   // Supports localStorage override for Vercel -> FastAPI Cloud split deployments
-  let API_BASE = (localStorage.getItem('docbench_api_url') || window.DOCBENCH_API_BASE || '').replace(/\/+$/, '');
+  const defaultBase = window.location.hostname.includes('vercel.app') ? 'https://docbench.fastapicloud.dev' : '';
+  let API_BASE = (localStorage.getItem('docbench_api_url') || window.DOCBENCH_API_BASE || defaultBase).replace(/\/+$/, '');
 
   // 2. Application State
   const state = {
